@@ -5,8 +5,8 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Interface" href="../reference/interface.html" /><link rel="prev" title="Other add-ons" href="authoring/other_addons.html" />
 
-    <link rel="shortcut icon" href="https://bonsaibim.org/assets/images/blender/blender-logo.png"/><!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>Troubleshooting - Bonsai 0.8.1 documentation</title>
+    <link rel="shortcut icon" href="https://bonsaibim.org/assets/images/blender/blender-logo.png"/><!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
+        <title>Troubleshooting - Bonsai 0.8.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=aefb6c79" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -208,7 +208,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Bonsai 0.8.1 documentation</div></a>
+      <a href="../index.html"><div class="brand">Bonsai 0.8.3 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -235,7 +235,7 @@
     <img class="sidebar-logo" src="https://bonsaibim.org/assets/images/blender/blender-logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">Bonsai 0.8.1 documentation</span>
+  <span class="sidebar-brand-text">Bonsai 0.8.3 documentation</span>
   
   <select class="doc-version-switcher" onchange="switchDocs()">
     <option value="stable">Stable</option>
@@ -303,6 +303,7 @@
 <li class="toctree-l2"><a class="reference internal" href="development/debugging.html">Debugging Bonsai</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="alignment.html">Road and Rail Alignments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="authoring/other_addons.html">Other add-ons</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Troubleshooting</a></li>
 </ul>
@@ -449,7 +450,7 @@ create unpredictable, and sometimes unrecoverable errors.</p>
 are not available in IFC. As <a class="reference internal" href="#saving-and-loading-blend-files"><span class="std std-ref">Bonsai uses IFC as its native data
 store</span></a>, using these
 incompatible features may result in data loss.</p>
-<ol class="arabic simple">
+<ol class="arabic">
 <li><p><strong>Manual geometry editing</strong>. Manually changing the mode to Edit or Object
 mode in the <span class="menuselection">3D Viewport</span> top left dropdown menu. This
 changes the Blender mesh editing mode, but any changes may be incompatible
@@ -462,6 +463,22 @@ toggle in the top right of the <span class="menuselection">3D Viewport</span>.</
 objects that have been scaled in object mode will have their scale reset to
 1, and scaling an object may result in unpredictable operations. Instead,
 scale objects within edit mode.</p></li>
+<li><p><strong>Copy and Paste for IFC objects</strong>. Copying and pasting objects preserving their IFC data
+is not currently supported as pasting object may be unsafe:
+object may come from a different Blender session or from current session but it’s earlier state.</p>
+<p>If you copy and paste IFC object, you will find that pasted IFC object is unlinked to any IFC data
+to keep it safe.</p>
+<p>Current workarounds:</p>
+<ul class="simple">
+<li><p>copying IFC objects in current session instead use “IFC Duplicate Object” operator (<kbd class="kbd docutils literal notranslate">Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">D</kbd>).</p></li>
+<li><p>copying IFC occurrences objects from other projects - link IFC project,
+query element using Explore Tool and then append it from Links UI.</p></li>
+<li><p>copying any IFC objects to a new separate project - use IfcPatch with ExtractElements recipe.</p></li>
+<li><p>copying IFC types from a different project use Project Library UI.</p></li>
+</ul>
+<p>WARNING. Manually using Blender’s “Paste Objects” operator instead of “IFC Paste BIM Objects” to paste IFC objects
+will have unpredictable results and will lead to data corruption.</p>
+</li>
 </ol>
 </section>
 <section id="where-is-the-add-on-installed">
@@ -598,7 +615,7 @@ is <code class="docutils literal notranslate"><span class="pre">/home/dion/.conf
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=ec16d22d"></script>
+</div><script src="../_static/documentation_options.js?v=7f96dc5e"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
