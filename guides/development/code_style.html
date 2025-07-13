@@ -286,6 +286,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart/explore_model.html">Exploring an IFC model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart/create_model.html">Creating an IFC model</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../quickstart/ide/index.html">Exploring Bonsai Sourcecode</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Exploring Bonsai Sourcecode</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart/ide/linux_ide.html">Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart/ide/windows_ide.html">Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart/ide/macos_ide.html">MacOS</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart/next_steps.html">Next Steps</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Guides</span></p>
@@ -293,7 +299,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../viewing/dealing_with_large_models.html">Dealing with large models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../authoring/georeferencing.html">Georeferencing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../authoring/git_support.html">Tracking revisions with Git</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="index.html">Development</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Development</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html">Development</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Development</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="hello_world.html">Hello, world!</a></li>
 <li class="toctree-l2"><a class="reference internal" href="running_tests.html">Running tests</a></li>
@@ -312,6 +318,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../reference/interface.html">Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference/topbar.html">Topbar</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference/properties.html">Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/hotkeys.html">Hotkeys</a></li>
 </ul>
 
 </div>
@@ -358,8 +365,8 @@
         <article role="main" id="furo-main-content">
           <section id="code-style">
 <h1>Code style<a class="headerlink" href="#code-style" title="Link to this heading">¶</a></h1>
-<section id="black-code-formatter">
-<h2>Black code formatter<a class="headerlink" href="#black-code-formatter" title="Link to this heading">¶</a></h2>
+<section id="code-formatters">
+<h2>Code formatters<a class="headerlink" href="#code-formatters" title="Link to this heading">¶</a></h2>
 <p>For Python code formatting, we use <a class="reference external" href="https://pypi.org/project/black/">Black code formatter</a>,
 black settings are stored in the repository’s pyproject.toml.</p>
 <p>We have GitHub workflow <cite>ci-black-formatting</cite> to maintain black formatting across the repository.</p>
@@ -371,6 +378,10 @@ black<span class="w"> </span>.
 black<span class="w"> </span>src/bonsai/bonsai/bim/module/qto/operator.py
 </pre></div>
 </div>
+<p>There is also <cite>ruff</cite> with some basic linter rules (checked automatically by the same Github workflow).
+Which also helps maintaining consistency across the code base
+and ensure new Python syntax doesn’t break code on older Python versions.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ruff</span></code> can be installed using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">ruff</span></code> and files can be formatted with the following example commands:</p>
 </section>
 </section>
 
@@ -385,7 +396,7 @@ black<span class="w"> </span>src/bonsai/bonsai/bim/module/qto/operator.py
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2020-2024 IfcOpenShell Contributors
+                Copyright &#169; 2020-2025 IfcOpenShell Contributors
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -422,7 +433,7 @@ black<span class="w"> </span>src/bonsai/bonsai/bim/module/qto/operator.py
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Code style</a><ul>
-<li><a class="reference internal" href="#black-code-formatter">Black code formatter</a></li>
+<li><a class="reference internal" href="#code-formatters">Code formatters</a></li>
 </ul>
 </li>
 </ul>

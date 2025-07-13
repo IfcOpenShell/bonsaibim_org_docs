@@ -286,6 +286,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart/explore_model.html">Exploring an IFC model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart/create_model.html">Creating an IFC model</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../quickstart/ide/index.html">Exploring Bonsai Sourcecode</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Exploring Bonsai Sourcecode</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart/ide/linux_ide.html">Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart/ide/windows_ide.html">Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart/ide/macos_ide.html">MacOS</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart/next_steps.html">Next Steps</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Guides</span></p>
@@ -293,7 +299,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../viewing/dealing_with_large_models.html">Dealing with large models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../authoring/georeferencing.html">Georeferencing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../authoring/git_support.html">Tracking revisions with Git</a></li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Development</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Development</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Development</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Development</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="hello_world.html">Hello, world!</a></li>
 <li class="toctree-l2"><a class="reference internal" href="running_tests.html">Running tests</a></li>
@@ -312,6 +318,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../reference/interface.html">Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference/topbar.html">Topbar</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference/properties.html">Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/hotkeys.html">Hotkeys</a></li>
 </ul>
 
 </div>
@@ -547,11 +554,16 @@ wget<span class="w"> </span>https://raw.githubusercontent.com/jsGanttImproved/js
 wget<span class="w"> </span>https://raw.githubusercontent.com/jsGanttImproved/jsgantt-improved/master/dist/jsgantt.css
 <span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">PACKAGE_PATH</span><span class="si">}</span><span class="s2">/bonsai/bim/data/brick&quot;</span>
 wget<span class="w"> </span>https://github.com/BrickSchema/Brick/releases/download/nightly/Brick.ttl
+<span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">PACKAGE_PATH</span><span class="si">}</span><span class="s2">/bonsai/bim/data/webui/static/js&quot;</span>
+wget<span class="w"> </span>https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js
 </pre></div>
 </div>
 </div>
-<p>For Windows, run this batch script as an administrator. Before running it
-follow the instructions described in the <cite>rem</cite> tags.</p>
+<p>For Windows, run this batch script as an administrator. Make sure to
+run the script with blender closed. By default the script assumes its
+in the root directory of the IFCOpenShell repository. If you want to run
+it from another directory, set the environment variables described in the
+<cite>rem</cite> tags.</p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">dev_environment.bat</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
 <div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="p">@</span><span class="k">echo</span> off
@@ -564,7 +576,7 @@ follow the instructions described in the <cite>rem</cite> tags.</p>
 <span class="c1">rem SET REPO_PATH=%HOMEDRIVE%\Users\%USERNAME%\Where\Your\Git\Repository\Is\Cloned\IfcOpenShell</span>
 <span class="k">SET</span> <span class="nv">BLENDER_PATH</span><span class="p">=</span><span class="nv">%HOMEDRIVE%</span>\Users\<span class="nv">%USERNAME%</span>\AppData\Roaming\Blender Foundation\Blender\4.4
 <span class="k">SET</span> <span class="nv">PACKAGE_PATH</span><span class="p">=</span><span class="nv">%BLENDER_PATH%</span>\extensions\.local\lib\python3.11\site-packages
-<span class="k">SET</span> <span class="nv">BONSAI_PATH</span><span class="p">=</span><span class="nv">%BLENDER_PATH%</span>\extensions\user_default\bonsai
+<span class="k">SET</span> <span class="nv">BONSAI_PATH</span><span class="p">=</span><span class="nv">%BLENDER_PATH%</span>\extensions\raw_githubusercontent_com\bonsai
 
 
 <span class="k">echo</span> SETUP BONSAI ADD-ON LIVE DEVELOPMENT ENVIRONMENT
@@ -630,6 +642,7 @@ git checkout -- src/bonsai/bonsai/bim/data/templates/projects/*.ifc
 curl https://raw.githubusercontent.com/jsGanttImproved/jsgantt-improved/master/dist/jsgantt.js -o <span class="s2">&quot;</span><span class="nv">%PACKAGE_PATH%</span><span class="s2">\bonsai\bim\data\gantt\jsgantt.js&quot;</span>
 curl https://raw.githubusercontent.com/jsGanttImproved/jsgantt-improved/master/dist/jsgantt.css -o <span class="s2">&quot;</span><span class="nv">%PACKAGE_PATH%</span><span class="s2">\bonsai\bim\data\gantt\jsgantt.css&quot;</span>
 curl -L https://github.com/BrickSchema/Brick/releases/download/nightly/Brick.ttl -o <span class="s2">&quot;</span><span class="nv">%PACKAGE_PATH%</span><span class="s2">\bonsai\bim\data\brick\Brick.ttl&quot;</span>
+curl https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js -o <span class="s2">&quot;</span><span class="nv">%PACKAGE_PATH%</span><span class="s2">\bonsai\bim\data\webui\static\js\jquery.min.js&quot;</span>
 
 <span class="k">pause</span>
 </pre></div>
@@ -736,7 +749,7 @@ same dependency. Neither add-on may work simultaneously.</p></li>
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2020-2024 IfcOpenShell Contributors
+                Copyright &#169; 2020-2025 IfcOpenShell Contributors
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             

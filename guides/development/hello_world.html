@@ -286,6 +286,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart/explore_model.html">Exploring an IFC model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart/create_model.html">Creating an IFC model</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../quickstart/ide/index.html">Exploring Bonsai Sourcecode</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Exploring Bonsai Sourcecode</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart/ide/linux_ide.html">Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart/ide/windows_ide.html">Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart/ide/macos_ide.html">MacOS</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart/next_steps.html">Next Steps</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Guides</span></p>
@@ -293,7 +299,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../viewing/dealing_with_large_models.html">Dealing with large models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../authoring/georeferencing.html">Georeferencing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../authoring/git_support.html">Tracking revisions with Git</a></li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Development</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Development</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Development</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Development</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Hello, world!</a></li>
 <li class="toctree-l2"><a class="reference internal" href="running_tests.html">Running tests</a></li>
@@ -312,6 +318,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../reference/interface.html">Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference/topbar.html">Topbar</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference/properties.html">Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/hotkeys.html">Hotkeys</a></li>
 </ul>
 
 </div>
@@ -580,9 +587,11 @@ is complex and requires a deep knowledge of IFC to perform correctly and ensure
 that the IFC graph state is well maintained. Typically, any authoring operation
 that does not use the API is likely to contain mistakes.</p>
 <p>Here’s an example of it in action:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ifcopenshell.api</span>
-<span class="n">ifcopenshell</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;grid.create_grid_axis&quot;</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">ifcopenshell</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;structural.add_structural_load&quot;</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ifcopenshell.api.grid</span>
+<span class="kn">import</span> <span class="nn">ifcopenshell.api.structural</span>
+
+<span class="n">ifcopenshell</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">create_grid_axis</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">ifcopenshell</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">structural</span><span class="o">.</span><span class="n">add_structural_load</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Because the API performs all the IFC manipulations to achieve a usecase, no
@@ -654,7 +663,7 @@ need further testing. Here are some places to reach out:</p>
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2020-2024 IfcOpenShell Contributors
+                Copyright &#169; 2020-2025 IfcOpenShell Contributors
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
