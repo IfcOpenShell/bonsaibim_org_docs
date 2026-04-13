@@ -6,10 +6,10 @@
 <link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="Writing documentation" href="writing_docs.html"><link rel="prev" title="Translations" href="translations.html">
         <link rel="prefetch" href="https://bonsaibim.org/assets/images/blender/blender-logo.png" as="image">
 
-    <link rel="shortcut icon" href="https://bonsaibim.org/assets/images/blender/blender-logo.png"><!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
-        <title>Undo system - Bonsai 0.8.4 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=aefb6c79" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=580074bf" />
+    <link rel="shortcut icon" href="https://bonsaibim.org/assets/images/blender/blender-logo.png"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>Undo system - Bonsai 0.8.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=3e69a11e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d516ef9b" />
@@ -204,7 +204,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">Bonsai 0.8.4 documentation</div></a>
+      <a href="../../index.html"><div class="brand">Bonsai 0.8.5 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -229,7 +229,7 @@
     <img class="sidebar-logo" src="https://bonsaibim.org/assets/images/blender/blender-logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">Bonsai 0.8.4 documentation</span>
+  <span class="sidebar-brand-text">Bonsai 0.8.5 documentation</span>
   
   <select class="doc-version-switcher" onchange="switchDocs()">
     <option value="stable">Stable</option>
@@ -335,6 +335,7 @@
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Undo system</a></li>
 <li class="toctree-l2"><a class="reference internal" href="writing_docs.html">Writing documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="debugging.html">Debugging Bonsai</a></li>
+<li class="toctree-l2"><a class="reference internal" href="maintenance.html">Maintenance</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="ide/index.html">Exploring Bonsai Sourcecode</a><input aria-label="Toggle navigation of Exploring Bonsai Sourcecode" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="ide/linux_ide.html">Linux</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ide/windows_ide.html">Windows</a></li>
@@ -447,12 +448,12 @@ the IFC dataset, and the Bonsai system that synchronises Blender and the IFC
 dataset.</p>
 <p>Let’s see how undo works in a basic Blender add-on without IFC or Bonsai
 getting involved.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Foobar</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Operator</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Foobar</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Operator</span><span class="p">):</span>
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="s2">&quot;foobar&quot;</span>
     <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Foobar&quot;</span>
 <span class="hll">    <span class="n">bl_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;REGISTER&quot;</span><span class="p">,</span> <span class="s2">&quot;UNDO&quot;</span><span class="p">}</span>
 </span>
-    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Foobar&quot;</span>
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span>
 </pre></div>
@@ -464,7 +465,7 @@ out all the changes automatically and you don’t need to do anything.</p>
 <p>If you have an operator that only manipulates (creates, removes, or edits)
 Blender data, this solution is sufficient.</p>
 <p>Now let’s look at pure IfcOpenShell.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ifcopenshell</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">ifcopenshell</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">ifcopenshell</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;foo.ifc&quot;</span><span class="p">)</span>
 <span class="hll"><span class="n">model</span><span class="o">.</span><span class="n">begin_transaction</span><span class="p">()</span>
 </span><span class="n">model</span><span class="o">.</span><span class="n">create_entity</span><span class="p">(</span><span class="s2">&quot;IfcWall&quot;</span><span class="p">)</span>
@@ -478,15 +479,15 @@ want. Since IfcOpenShell has no interface, you manually run code like
 <code class="docutils literal notranslate"><span class="pre">model.undo()</span></code> and <code class="docutils literal notranslate"><span class="pre">model.redo()</span></code> to undo and redo.</p>
 <p>This scenario where there is pure IfcOpenShell never occurs with Bonsai.
 Instead, stuff happens in Blender operators.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Foobar</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Operator</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Foobar</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Operator</span><span class="p">):</span>
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="s2">&quot;foobar&quot;</span>
     <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Foobar&quot;</span>
     <span class="n">bl_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;REGISTER&quot;</span><span class="p">,</span> <span class="s2">&quot;UNDO&quot;</span><span class="p">}</span>
 
-<span class="hll">    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+<span class="hll">    <span class="k">def</span><span class="w"> </span><span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
 </span><span class="hll">        <span class="k">return</span> <span class="n">IfcStore</span><span class="o">.</span><span class="n">execute_ifc_operator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
 </span>
-    <span class="k">def</span> <span class="nf">_execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">ifcopenshell</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">foo</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span> <span class="n">tool</span><span class="o">.</span><span class="n">Ifc</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span>
 </pre></div>
@@ -509,12 +510,12 @@ provides everything that you need.</p>
 not tracked in the IFC data, and is not tracked in the element map, then you
 will have to write your own rollback (undo) and commit (redo) code for your
 operator. Here is an example.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Foobar</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Operator</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Foobar</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Operator</span><span class="p">):</span>
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="s2">&quot;foobar&quot;</span>
     <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Foobar&quot;</span>
     <span class="n">bl_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;REGISTER&quot;</span><span class="p">,</span> <span class="s2">&quot;UNDO&quot;</span><span class="p">}</span>
 
-    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">IfcStore</span><span class="o">.</span><span class="n">begin_transaction</span><span class="p">(</span><span class="n">operator</span><span class="p">)</span>
         <span class="n">old_value</span> <span class="o">=</span> <span class="n">Foo</span><span class="o">.</span><span class="n">bar</span>
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
@@ -524,14 +525,14 @@ operator. Here is an example.</p>
         <span class="n">IfcStore</span><span class="o">.</span><span class="n">end_transaction</span><span class="p">(</span><span class="n">operator</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span>
 
-    <span class="k">def</span> <span class="nf">_execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">Foo</span><span class="o">.</span><span class="n">bar</span> <span class="o">=</span> <span class="s2">&quot;baz&quot;</span>
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span>
 
-    <span class="k">def</span> <span class="nf">rollback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rollback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="n">Foo</span><span class="o">.</span><span class="n">baz</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;old_value&quot;</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">commit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">commit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="n">Foo</span><span class="o">.</span><span class="n">baz</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;new_value&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -569,7 +570,7 @@ code from regular operation code.</p>
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2020-2025 IfcOpenShell Contributors
+                Copyright &#169; 2020-2026 IfcOpenShell Contributors
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -599,9 +600,9 @@ code from regular operation code.</p>
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=b41f4c93"></script>
-    <script src="../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+</div><script src="../../_static/documentation_options.js?v=1067c88a"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=f281be69"></script>

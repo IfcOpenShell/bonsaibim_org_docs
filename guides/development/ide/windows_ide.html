@@ -6,10 +6,10 @@
 <link rel="index" title="Index" href="../../../genindex.html"><link rel="search" title="Search" href="../../../search.html"><link rel="next" title="MacOS" href="macos_ide.html"><link rel="prev" title="Linux" href="linux_ide.html">
         <link rel="prefetch" href="https://bonsaibim.org/assets/images/blender/blender-logo.png" as="image">
 
-    <link rel="shortcut icon" href="https://bonsaibim.org/assets/images/blender/blender-logo.png"><!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
-        <title>Windows - Bonsai 0.8.4 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=aefb6c79" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=580074bf" />
+    <link rel="shortcut icon" href="https://bonsaibim.org/assets/images/blender/blender-logo.png"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>Windows - Bonsai 0.8.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=3e69a11e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=d516ef9b" />
@@ -204,7 +204,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../index.html"><div class="brand">Bonsai 0.8.4 documentation</div></a>
+      <a href="../../../index.html"><div class="brand">Bonsai 0.8.5 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -229,7 +229,7 @@
     <img class="sidebar-logo" src="https://bonsaibim.org/assets/images/blender/blender-logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">Bonsai 0.8.4 documentation</span>
+  <span class="sidebar-brand-text">Bonsai 0.8.5 documentation</span>
   
   <select class="doc-version-switcher" onchange="switchDocs()">
     <option value="stable">Stable</option>
@@ -335,6 +335,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../undo_system.html">Undo system</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../writing_docs.html">Writing documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../debugging.html">Debugging Bonsai</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance.html">Maintenance</a></li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">Exploring Bonsai Sourcecode</a><input aria-label="Toggle navigation of Exploring Bonsai Sourcecode" checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="linux_ide.html">Linux</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Windows</a></li>
@@ -517,9 +518,9 @@ is crucial to be able to develop and debug scripts in VSCode and interactively s
 for example <em>C:\Users\falke\Documents\bonsaiDevel\scripts</em>. You can use whatever blender python script you want.
 We will use this one from the blender documentation:</p>
 <p><a class="reference external" href="https://docs.blender.org/api/current/info_quickstart.html#example-panel">Example Panel</a></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">bpy</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">bpy</span>
 
-<span class="k">class</span> <span class="nc">HelloWorldPanel</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Panel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HelloWorldPanel</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Panel</span><span class="p">):</span>
 <span class="w">   </span><span class="sd">&quot;&quot;&quot;Creates a Panel in the Object properties window&quot;&quot;&quot;</span>
    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Hello World Panel&quot;</span>
    <span class="n">bl_idname</span> <span class="o">=</span> <span class="s2">&quot;OBJECT_PT_hello&quot;</span>
@@ -527,7 +528,7 @@ We will use this one from the blender documentation:</p>
    <span class="n">bl_region_type</span> <span class="o">=</span> <span class="s1">&#39;WINDOW&#39;</span>
    <span class="n">bl_context</span> <span class="o">=</span> <span class="s2">&quot;object&quot;</span>
 
-   <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+   <span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
       <span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span>
 
       <span class="n">obj</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">object</span>
@@ -544,11 +545,11 @@ We will use this one from the blender documentation:</p>
       <span class="n">row</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="s2">&quot;mesh.primitive_cube_add&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">register</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">register</span><span class="p">():</span>
    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_class</span><span class="p">(</span><span class="n">HelloWorldPanel</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">unregister</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">unregister</span><span class="p">():</span>
    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">unregister_class</span><span class="p">(</span><span class="n">HelloWorldPanel</span><span class="p">)</span>
 
 
@@ -851,7 +852,7 @@ right click in the “Generate SVG” and select “Edit Source”.</p>
 Press CTRL-SHIFT-P and type “Blender: Start”. Blender will start.
 Open the cloned folder and go to  <em>src &gt; bonsai &gt; bonsai &gt; bim &gt; module &gt; light &gt; prop.py</em> and go to line 75.
 Add a line for a print statement and click on the left side of the line number to add a break-point.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">74</span>   <span class="k">def</span> <span class="nf">update_shadow_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">74</span>   <span class="k">def</span><span class="w"> </span><span class="nf">update_shadow_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
 <span class="mi">75</span>      <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shadow mode&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shadow_mode</span><span class="p">)</span>
 <span class="mi">76</span>      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shadow_mode</span> <span class="o">==</span> <span class="s2">&quot;SHADING&quot;</span><span class="p">:</span>
 </pre></div>
@@ -1006,7 +1007,7 @@ A simple way to do this is by using the GitHub Pull Request extension in VSCode.
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2020-2025 IfcOpenShell Contributors
+                Copyright &#169; 2020-2026 IfcOpenShell Contributors
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -1036,9 +1037,9 @@ A simple way to do this is by using the GitHub Pull Request extension in VSCode.
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=b41f4c93"></script>
-    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+</div><script src="../../../_static/documentation_options.js?v=1067c88a"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../../_static/copybutton.js?v=f281be69"></script>
