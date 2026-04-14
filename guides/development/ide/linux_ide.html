@@ -8,7 +8,7 @@
 
     <link rel="shortcut icon" href="https://bonsaibim.org/assets/images/blender/blender-logo.png"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
         <title>Linux - Bonsai 0.8.5 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=3e69a11e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=aefb6c79" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -571,9 +571,9 @@ is crucial to be able to develop and debug scripts in VSCode ans interactively s
 <li><p><strong>Test that you can develop python scripts in VSCode for Blender</strong>: Create a sample blender python file.
 you can use whatever blender python script you want. We will use this one from the blender documentation:
 <a class="reference external" href="https://docs.blender.org/api/current/info_quickstart.html#example-panel">Example Panel</a></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">bpy</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">bpy</span>
 
-<span class="k">class</span><span class="w"> </span><span class="nc">HelloWorldPanel</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Panel</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">HelloWorldPanel</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Panel</span><span class="p">):</span>
 <span class="w">   </span><span class="sd">&quot;&quot;&quot;Creates a Panel in the Object properties window&quot;&quot;&quot;</span>
    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Hello World Panel&quot;</span>
    <span class="n">bl_idname</span> <span class="o">=</span> <span class="s2">&quot;OBJECT_PT_hello&quot;</span>
@@ -581,7 +581,7 @@ you can use whatever blender python script you want. We will use this one from t
    <span class="n">bl_region_type</span> <span class="o">=</span> <span class="s1">&#39;WINDOW&#39;</span>
    <span class="n">bl_context</span> <span class="o">=</span> <span class="s2">&quot;object&quot;</span>
 
-   <span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
       <span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span>
 
       <span class="n">obj</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">object</span>
@@ -598,11 +598,11 @@ you can use whatever blender python script you want. We will use this one from t
       <span class="n">row</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="s2">&quot;mesh.primitive_cube_add&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">register</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">register</span><span class="p">():</span>
    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_class</span><span class="p">(</span><span class="n">HelloWorldPanel</span><span class="p">)</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">unregister</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">unregister</span><span class="p">():</span>
    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">unregister_class</span><span class="p">(</span><span class="n">HelloWorldPanel</span><span class="p">)</span>
 
 
@@ -888,7 +888,7 @@ right click in the “Generate SVG” and select “Edit Source”.</p>
 Press CTRL_SHIFT_P and type “Blender: Start”. Blender will start.
 Open the cloned folder and go to  <em>src &gt; bonsai &gt; bonsai &gt; bim &gt; module &gt; light &gt; prop.py</em> and go to line 75.
 Add a line for a print statement and click on the left side of the line number to add a break-point.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">74</span>   <span class="k">def</span><span class="w"> </span><span class="nf">update_shadow_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">74</span>   <span class="k">def</span> <span class="nf">update_shadow_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
 <span class="mi">75</span>      <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shadow mode&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shadow_mode</span><span class="p">)</span>
 <span class="mi">76</span>      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shadow_mode</span> <span class="o">==</span> <span class="s2">&quot;SHADING&quot;</span><span class="p">:</span>
 </pre></div>
