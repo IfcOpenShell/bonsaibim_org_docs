@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=6f35849e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=3ce2a446" />
     
     
 
@@ -215,7 +215,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
       </label>
     </div>
@@ -286,7 +286,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
           </label>
         </div>
@@ -296,54 +296,35 @@
 <p>Bonsai Viewer is a standalone desktop application. It does not require
 Blender, Bonsai, or Python to be installed.</p>
 <ol class="arabic simple">
-<li><p><strong>Stable</strong> is recommended for most users.</p></li>
-<li><p><strong>Unstable</strong> is recommended for users wanting the latest features and
-fixes, at the cost of occasional breakage.</p></li>
-<li><p><strong>Compiling from source</strong> is for developers, see
-<a class="reference internal" href="developer_installation.html"><span class="doc">Developer installation</span></a>.</p></li>
+<li><p><strong>Download Bonsai Viewer</strong> 0.9.0alpha0 for your operating system.</p></li>
 </ol>
-<section id="stable">
-<h2>Stable<a class="headerlink" href="#stable" title="Link to this heading">¶</a></h2>
-<ol class="arabic">
-<li><p>Download the release for your operating system.</p>
-<div class="table-wrapper docutils container">
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Windows</p></th>
-<th class="head"><p>Linux</p></th>
-<th class="head"><p>MacOS</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><a class="reference external" href="https://github.com/IfcOpenShell/IfcOpenShell/releases/download/bonsaiviewer-0.9.0alpha0/bonsaiviewer-0.9.0alpha0-win64.zip">win64</a></p></td>
-<td><p><a class="reference external" href="https://github.com/IfcOpenShell/IfcOpenShell/releases/download/bonsaiviewer-0.9.0alpha0/bonsaiviewer-0.9.0alpha0-linux64.zip">linux64</a></p></td>
-<td><p><a class="reference external" href="https://github.com/IfcOpenShell/IfcOpenShell/releases/download/bonsaiviewer-0.9.0alpha0/bonsaiviewer-0.9.0alpha0-macosm164.zip">macosm164</a></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/IfcOpenShell/IfcOpenShell/releases/download/bonsaiviewer-0.9.0alpha0/bonsaiviewer-0.9.0alpha0-win-arm64.zip">win-arm64</a></p></td>
-<td><p><a class="reference external" href="https://github.com/IfcOpenShell/IfcOpenShell/releases/download/bonsaiviewer-0.9.0alpha0/bonsaiviewer-0.9.0alpha0-linuxarm64.zip">linuxarm64</a></p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<div class="download-buttons docutils container">
+<div class="blockbutton windows docutils container">
+<p><a class="reference external" href="https://github.com/IfcOpenShell/IfcOpenShell/releases/download/bonsaiviewer-0.9.0alpha0/bonsaiviewer-0.9.0alpha0-win64.zip">Windows</a></p>
 </div>
-<p>Only Apple Silicon Macs are supported.</p>
-</li>
-<li><p>Unzip the downloaded file anywhere.</p></li>
+<div class="blockbutton macos docutils container">
+<p><a class="reference external" href="https://github.com/IfcOpenShell/IfcOpenShell/releases/download/bonsaiviewer-0.9.0alpha0/bonsaiviewer-0.9.0alpha0-macosm164.zip">macOS</a></p>
+</div>
+<div class="blockbutton linux docutils container">
+<p><a class="reference external" href="https://github.com/IfcOpenShell/IfcOpenShell/releases/download/bonsaiviewer-0.9.0alpha0/bonsaiviewer-0.9.0alpha0-linux64.zip">Linux</a></p>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>On an ARM device? Download <a class="reference external" href="https://github.com/IfcOpenShell/IfcOpenShell/releases/download/bonsaiviewer-0.9.0alpha0/bonsaiviewer-0.9.0alpha0-win-arm64.zip">Windows ARM64</a> or
+<a class="reference external" href="https://github.com/IfcOpenShell/IfcOpenShell/releases/download/bonsaiviewer-0.9.0alpha0/bonsaiviewer-0.9.0alpha0-linuxarm64.zip">Linux ARM64</a> instead.</p>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Unzip the downloaded file anywhere you like.</p></li>
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">BonsaiViewer</span></code> (<code class="docutils literal notranslate"><span class="pre">BonsaiViewer.exe</span></code> on Windows, <code class="docutils literal notranslate"><span class="pre">BonsaiViewer.app</span></code>
-on MacOS).</p></li>
+on macOS). You’re done!</p></li>
 </ol>
-<p>All releases are listed on the <a class="reference external" href="https://github.com/IfcOpenShell/IfcOpenShell/releases?q=bonsaiviewer&amp;expanded=true">GitHub releases page</a>.</p>
-</section>
-<section id="unstable">
-<h2>Unstable<a class="headerlink" href="#unstable" title="Link to this heading">¶</a></h2>
-<p>Every build of IfcOpenShell also builds Bonsai Viewer. Open the <a class="reference external" href="https://builds.ifcopenshell.org">IfcOpenShell
-Build Service</a>, find the <code class="docutils literal notranslate"><span class="pre">BonsaiViewer</span></code>
-row of the most recent build, and download the zip for your platform. Install
-it the same way as a stable release.</p>
-<p>The builds are made on demand rather than on a schedule, so the newest build
-may be a few days old. Not every build covers every platform, so you may need
-to look at an older build for yours.</p>
-</section>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>All releases, including previous versions, are on the <a class="reference external" href="https://github.com/IfcOpenShell/IfcOpenShell/releases?q=bonsaiviewer&amp;expanded=true">GitHub releases page</a>.
+Want the latest changes before they are released, or to compile Bonsai Viewer
+yourself? See <a class="reference internal" href="developer_installation.html"><span class="doc">Developer installation</span></a>.</p>
+</div>
 </section>
 
         </article>
@@ -399,28 +380,8 @@ to look at an older build for yours.</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            On this page
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">Installation</a><ul>
-<li><a class="reference internal" href="#stable">Stable</a></li>
-<li><a class="reference internal" href="#unstable">Unstable</a></li>
-</ul>
-</li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>

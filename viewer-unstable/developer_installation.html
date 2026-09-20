@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=6f35849e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=3ce2a446" />
     
     
 
@@ -299,6 +299,16 @@ End users should install a packaged release rather than building it themselves.<
 the rest of IfcOpenShell. It is not a Blender add-on, so — unlike Bonsai —
 there is no “live development” symlink workflow: you rebuild the binary after
 changing the code.</p>
+<section id="unstable-builds">
+<h2>Unstable builds<a class="headerlink" href="#unstable-builds" title="Link to this heading">¶</a></h2>
+<p>If you want the latest changes without compiling anything, every build of
+IfcOpenShell also builds Bonsai Viewer. Open the <a class="reference external" href="https://builds.ifcopenshell.org">IfcOpenShell Build Service</a>, find the <code class="docutils literal notranslate"><span class="pre">BonsaiViewer</span></code> row of the most
+recent build, and download the zip for your platform. Install it the same way
+as a release, see <a class="reference internal" href="installation.html"><span class="doc">Installation</span></a>.</p>
+<p>The builds are made on demand rather than on a schedule, so the newest build
+may be a few days old. Not every build covers every platform, so you may need
+to look at an older build for yours.</p>
+</section>
 <section id="system-requirements">
 <h2>System requirements<a class="headerlink" href="#system-requirements" title="Link to this heading">¶</a></h2>
 <ul class="simple">
@@ -439,6 +449,7 @@ running app can find it. See <a class="reference internal" href="connectors/inde
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Developer installation</a><ul>
+<li><a class="reference internal" href="#unstable-builds">Unstable builds</a></li>
 <li><a class="reference internal" href="#system-requirements">System requirements</a></li>
 <li><a class="reference internal" href="#batteries-included-build">Batteries-included build</a></li>
 <li><a class="reference internal" href="#direct-cmake-build">Direct CMake build</a></li>
