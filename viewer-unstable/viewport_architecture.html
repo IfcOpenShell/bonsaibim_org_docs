@@ -1,0 +1,778 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="prev" title="Environment variables and developer settings" href="env-vars.html">
+        <link rel="prefetch" href="https://ifcopenshell.org/assets/images/logo.png" as="image">
+
+    <link rel="shortcut icon" href="https://ifcopenshell.org/assets/images/logo.png"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>Viewport architecture - Bonsai Viewer 0.9.0alpha0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=3e69a11e" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=6f35849e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #282C34;
+  --color-code-foreground: #ABB2BF;
+  --color-brand-primary: #39b54a;
+  --color-brand-content: #39b54a;
+  --color-brand-visited: #d9e021;
+  --color-background-primary: #f7f7f6;
+  --color-background-secondary: #eeeeec;
+  --color-background-border: #cfd0cb;
+  --color-foreground-primary: #2e3436;
+  --color-sidebar-item-background--hover: #f7f7f6;
+  --color-link: #39b54a;
+  --color-link--visited: #39b54a;
+  --color-link--hover: #d98014;
+  --color-link--visited--hover: #d98014;
+  --color-admonition-text: #651fff;
+  --font-stack: Nunito, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #282C34;
+  --color-code-foreground: #ABB2BF;
+  --color-brand-primary: #39b54a;
+  --color-brand-content: #39b54a;
+  --color-brand-visited: #d9e021;
+  --color-background-primary: #2e3436;
+  --color-background-border: #2e3436;
+  --color-foreground-primary: #eeeeec;
+  --color-sidebar-item-background--hover: #2e3436;
+  --color-link: #39b54a;
+  --color-link--visited: #39b54a;
+  --color-link--hover: #d98014;
+  --color-link--visited--hover: #d98014;
+  --color-admonition-text: #EEEEEC;
+  --font-stack: Nunito, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #282C34;
+  --color-code-foreground: #ABB2BF;
+  --color-brand-primary: #39b54a;
+  --color-brand-content: #39b54a;
+  --color-brand-visited: #d9e021;
+  --color-background-primary: #2e3436;
+  --color-background-border: #2e3436;
+  --color-foreground-primary: #eeeeec;
+  --color-sidebar-item-background--hover: #2e3436;
+  --color-link: #39b54a;
+  --color-link--visited: #39b54a;
+  --color-link--hover: #d98014;
+  --color-link--visited--hover: #d98014;
+  --color-admonition-text: #EEEEEC;
+  --font-stack: Nunito, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">Bonsai Viewer 0.9.0alpha0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="https://ifcopenshell.org/assets/images/logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">Bonsai Viewer 0.9.0alpha0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_installation.html">Developer installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="connectors/index.html">Connectors</a><input aria-label="Toggle navigation of Connectors" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="connectors/cloud_sync_protocol.html">Cloud Connector Protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connectors/autodesk.html">Autodesk Connector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connectors/autodesk_development.html">Autodesk Connector Development</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="debug-output.html">Capturing debug output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="env-vars.html">Environment variables and developer settings</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Viewport architecture</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://github.com/IfcOpenShell/IfcOpenShell/blob/v0.9.0/src/bonsaiviewer/docs/viewport_architecture.rst?plain=true" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/IfcOpenShell/IfcOpenShell/edit/v0.9.0/src/bonsaiviewer/docs/viewport_architecture.rst" rel="edit" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="viewport-architecture">
+<h1>Viewport architecture<a class="headerlink" href="#viewport-architecture" title="Link to this heading">¶</a></h1>
+<p>This page documents the WebGPU IFC viewer renderer in <code class="docutils literal notranslate"><span class="pre">src/ifcviewer</span></code>. The
+same renderer is used by BonsaiViewer, IfcViewerMinimal, and the web build. It
+explains the path from an IFC model or <code class="docutils literal notranslate"><span class="pre">.ifcview</span></code> cache to rendered triangles,
+including the optimisation stages that decide what is loaded, what is resident
+in GPU memory, and what is drawn.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h2>
+<p>The renderer is built around a small number of data transformations:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>IFC / .ifcview input
+    -&gt; SceneLoader
+    -&gt; GeometryStreamer or sidecar metadata reader
+    -&gt; SidecarData-shaped model metadata
+    -&gt; ViewportCore::applyCachedModel()
+    -&gt; per-model chunks, mesh table, instance table
+    -&gt; cullModelCpuCompute()
+    -&gt; visible_draws + prefix_sums
+    -&gt; driveStreamingLoads()
+    -&gt; applyStreamedChunk()
+    -&gt; WebGPU draw() calls
+    -&gt; WGSL expands visible draws into indexed triangles
+</pre></div>
+</div>
+<p>The important split is between <strong>metadata</strong> and <strong>geometry bytes</strong>. Metadata
+describes meshes, instances, bounds, transforms, element ids, and chunk layout.
+Geometry bytes are the quantised vertices and indices. A sidecar load reads
+metadata first and leaves geometry chunks non-resident until the camera needs
+them. A direct IFC load builds the same structures from the geometry iterator,
+then uploads all chunks at finalisation.</p>
+</section>
+<section id="main-components">
+<h2>Main components<a class="headerlink" href="#main-components" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">SceneLoader</span></code></dt><dd><p>Orchestrates model loading. It first tries to read <code class="docutils literal notranslate"><span class="pre">.ifcview</span></code> metadata
+when sidecar reads are enabled. If that fails, it starts the geometry
+streamer. It also keeps the <code class="docutils literal notranslate"><span class="pre">ifcopenshell::file</span></code> used by property and UI
+code.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">GeometryStreamer</span></code></dt><dd><p>Runs <code class="docutils literal notranslate"><span class="pre">ifcopenshell::geom::iterator</span></code> on a worker thread for raw IFC loads. It emits a
+<code class="docutils literal notranslate"><span class="pre">StreamedMesh</span></code> once for each unique representation mesh and a
+<code class="docutils literal notranslate"><span class="pre">StreamedInstance</span></code> for each placed occurrence.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">SidecarBuilder</span></code></dt><dd><p>Optionally mirrors the streamer’s output while a raw IFC is loading. It
+writes a new <code class="docutils literal notranslate"><span class="pre">.ifcview</span></code> cache after the stream finishes, so the next open
+can use the sidecar fast path.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ViewportWindow</span></code></dt><dd><p>The Qt-facing window wrapper. It owns UI/window integration and forwards
+renderer work to <code class="docutils literal notranslate"><span class="pre">ViewportCore</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ViewportCore</span></code></dt><dd><p>The renderer core. It owns the WebGPU device-facing model state, pipelines,
+chunk residency, culling, streaming, picking, screenshot capture, and render
+loop.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ModelGpuData</span></code></dt><dd><p>Per-model runtime state: mesh metadata, instances, chunks, GPU buffers,
+per-chunk visibility scratch, object lookup maps, and CPU-side caches used
+by tools.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">BufferPool</span></code></dt><dd><p>Sub-allocates chunk vertex and index bytes from one or more WebGPU buffers.
+Chunks enter and leave this pool as the streaming system pages geometry in
+and out.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">StreamingThread</span></code> and web range loading</dt><dd><p>Desktop sidecar streaming uses a background worker to read and decompress
+chunk frames. The web build uses asynchronous byte-range reads from a
+registered file or URL source.</p>
+</dd>
+</dl>
+</section>
+<section id="load-path-1-sidecar-hit">
+<h2>Load path 1: sidecar hit<a class="headerlink" href="#load-path-1-sidecar-hit" title="Link to this heading">¶</a></h2>
+<p>The fast path starts when <code class="docutils literal notranslate"><span class="pre">SceneLoader</span></code> finds a readable <code class="docutils literal notranslate"><span class="pre">.ifcview</span></code> cache.
+The reader validates the sidecar header, skips the compressed geometry section,
+and reads the metadata blocks.</p>
+<p>For desktop loading, <code class="docutils literal notranslate"><span class="pre">readSidecarMetadata()</span></code> returns a
+<code class="docutils literal notranslate"><span class="pre">StreamingSidecar</span></code> containing:</p>
+<ul class="simple">
+<li><p>the sidecar file path</p></li>
+<li><p>the geometry section offset</p></li>
+<li><p>mesh records</p></li>
+<li><p>instance records</p></li>
+<li><p>georeferencing state</p></li>
+<li><p>the baked chunk table of contents</p></li>
+<li><p>element metadata</p></li>
+</ul>
+<p>For web loading, <code class="docutils literal notranslate"><span class="pre">ViewportCore::loadSidecarMetadataWeb()</span></code> reads only the
+header and critical metadata before creating the model. It records the location
+of the deferred element metadata block and fetches that later only when UI code
+needs it.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ViewportCore::applyCachedModel()</span></code> then converts sidecar metadata into
+runtime model state:</p>
+<ol class="arabic simple">
+<li><p>It creates the chunk list. If the sidecar contains a baked
+<code class="docutils literal notranslate"><span class="pre">SidecarChunk</span></code> table, that table is authoritative. Each chunk is a
+consecutive mesh range with compressed vertex and index frame locations. If
+the model came from a direct in-memory load and has no table, the chunk plan
+is derived from mesh centroids with Morton sorting and greedy packing.</p></li>
+<li><p>It creates per-chunk scratch buffers: <code class="docutils literal notranslate"><span class="pre">visible_draws</span></code>, <code class="docutils literal notranslate"><span class="pre">prefix_sums</span></code>,
+and a small uniform with draw counts.</p></li>
+<li><p>It uploads the per-mesh quantisation table, <code class="docutils literal notranslate"><span class="pre">MeshGpu</span></code>.</p></li>
+<li><p>It uploads the per-instance GPU table, <code class="docutils literal notranslate"><span class="pre">InstanceGpu</span></code>.</p></li>
+<li><p>It builds CPU lookup tables: object id to instance, instance to chunk,
+mesh-local offsets inside each chunk, chunk AABBs, and chunk instance lists.</p></li>
+<li><p>It leaves the actual chunk vertex and index bytes non-resident. They are
+fetched later by <code class="docutils literal notranslate"><span class="pre">driveStreamingLoads()</span></code>.</p></li>
+</ol>
+<p>At this point the viewer knows the model’s structure and bounds, but a sidecar
+model has not necessarily uploaded any triangles yet.</p>
+</section>
+<section id="load-path-2-direct-ifc-stream">
+<h2>Load path 2: direct IFC stream<a class="headerlink" href="#load-path-2-direct-ifc-stream" title="Link to this heading">¶</a></h2>
+<p>When no usable sidecar exists, <code class="docutils literal notranslate"><span class="pre">SceneLoader</span></code> starts <code class="docutils literal notranslate"><span class="pre">GeometryStreamer</span></code>.
+Streamer signals are queued from the worker thread into the UI/render thread:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">StreamedMesh</span></code></dt><dd><p>A unique mesh in transfer form. Vertices are seven floats per vertex:
+position, normal, and packed colour.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">StreamedInstance</span></code></dt><dd><p>One placed occurrence of a mesh, with object id, colour override,
+placement transform, and world AABB.</p>
+</dd>
+</dl>
+<p>During the stream, <code class="docutils literal notranslate"><span class="pre">ViewportCore::uploadStreamedMesh()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">ViewportCore::uploadStreamedInstance()</span></code> stage the data in a <code class="docutils literal notranslate"><span class="pre">SidecarData</span></code>
+shape. Mesh vertices are converted to the renderer’s packed 12-byte format,
+indices are stored, and instance records are accumulated. The viewport does not
+incrementally draw these raw streamed mesh records one by one.</p>
+<p>When the streamer finishes, <code class="docutils literal notranslate"><span class="pre">SceneLoader::onStreamerFinished()</span></code> calls
+<code class="docutils literal notranslate"><span class="pre">ViewportCore::finalizeModel()</span></code>. Finalisation wraps the staged data in a
+<code class="docutils literal notranslate"><span class="pre">StreamingSidecar</span></code> object and calls the same <code class="docutils literal notranslate"><span class="pre">applyCachedModel()</span></code> path used
+by sidecar loads. It then gathers the already-staged vertex and index bytes per
+chunk and calls <code class="docutils literal notranslate"><span class="pre">applyStreamedChunk()</span></code> for each chunk. Direct IFC loads
+therefore become resident after finalisation rather than streaming from disk.</p>
+<p>If sidecar writes are enabled, <code class="docutils literal notranslate"><span class="pre">SidecarBuilder</span></code> finalises its mirrored copy,
+builds LOD1 where available, reorders geometry into streaming chunk order, and
+writes the <code class="docutils literal notranslate"><span class="pre">.ifcview</span></code> file for the next open.</p>
+</section>
+<section id="mesh-and-vertex-representation">
+<h2>Mesh and vertex representation<a class="headerlink" href="#mesh-and-vertex-representation" title="Link to this heading">¶</a></h2>
+<p>IFC geometry is represented as unique meshes plus instances. Repeated IFC
+representations are uploaded once, and every placement becomes an instance that
+references a mesh.</p>
+<p>The GPU vertex format is 12 bytes per vertex:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>offset 0   position  uint16[3]  quantised against the mesh local AABB
+offset 6   normal    int8[2]    octahedral encoded
+offset 8   colour    uint8[4]   RGBA
+</pre></div>
+</div>
+<p>The mesh’s <code class="docutils literal notranslate"><span class="pre">MeshGpu</span></code> record stores <code class="docutils literal notranslate"><span class="pre">aabb_min</span></code> and <code class="docutils literal notranslate"><span class="pre">aabb_max</span></code>. The vertex
+shader reconstructs local positions by mapping the three 16-bit coordinates
+back into that local AABB. The instance transform then moves the vertex to
+world space.</p>
+<p>Indices are <code class="docutils literal notranslate"><span class="pre">uint32</span></code>. Each mesh has an LOD0 index range and may have an LOD1
+index range. LOD1 reuses the same vertices with a smaller index list generated
+at sidecar-build time.</p>
+</section>
+<section id="chunk-layout-and-residency">
+<h2>Chunk layout and residency<a class="headerlink" href="#chunk-layout-and-residency" title="Link to this heading">¶</a></h2>
+<p>Chunks are the unit of streaming, residency, culling priority, and rendering
+bind groups. A chunk owns:</p>
+<ul class="simple">
+<li><p>a list of mesh ids</p></li>
+<li><p>a list of instance ids</p></li>
+<li><p>a world AABB</p></li>
+<li><p>compressed sidecar frame locations, for sidecar-backed models</p></li>
+<li><p>local vertex and index offsets for meshes inside the chunk</p></li>
+<li><p>GPU pool slices when resident</p></li>
+<li><p>cull output buffers</p></li>
+</ul>
+<p>For sidecar-backed models, chunks start non-resident. They have metadata and
+small cull buffers, but no vertex/index pool slices. A chunk becomes resident
+when <code class="docutils literal notranslate"><span class="pre">applyStreamedChunk()</span></code> receives its decompressed vertex and index bytes.</p>
+<p><code class="docutils literal notranslate"><span class="pre">applyStreamedChunk()</span></code>:</p>
+<ol class="arabic simple">
+<li><p>Allocates vertex and index slices from <code class="docutils literal notranslate"><span class="pre">BufferPool</span></code>.</p></li>
+<li><p>Uploads chunk bytes with <code class="docutils literal notranslate"><span class="pre">wgpuQueueWriteBuffer</span></code>.</p></li>
+<li><p>Builds the chunk bind group.</p></li>
+<li><p>Marks the chunk resident.</p></li>
+<li><p>Scans alpha bytes so culling can route transparent meshes to the transparent
+pass.</p></li>
+<li><p>Computes mesh-local volumes and triangle CPU shadows used by measurement
+tools.</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">unloadChunk()</span></code> releases the chunk’s bind group and returns its pool slices
+to <code class="docutils literal notranslate"><span class="pre">BufferPool</span></code>. Metadata and cull scratch remain allocated so the chunk can
+be loaded again later.</p>
+</section>
+<section id="per-frame-render-pipeline">
+<h2>Per-frame render pipeline<a class="headerlink" href="#per-frame-render-pipeline" title="Link to this heading">¶</a></h2>
+<p>Each frame in <code class="docutils literal notranslate"><span class="pre">ViewportCore::render()</span></code> follows this order:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>render():
+  drain completed HiZ readbacks
+  upload selection flags if dirty
+  acquire surface texture
+  update frame uniforms
+  cull visible instances and upload visible draw tables
+  drive chunk streaming and eviction
+  encode opaque main pass
+  encode transparent main pass
+  encode in-pass overlays
+  encode edge silhouette pass
+  encode HiZ resolve if enabled
+  encode post-main overlays
+  submit command buffer
+  present surface
+</pre></div>
+</div>
+<p>Streaming runs after culling. That means a chunk that becomes resident during
+<code class="docutils literal notranslate"><span class="pre">driveStreamingLoads()</span></code> is usually first visible on a later frame. The
+renderer requests a short burst of follow-up frames while streaming work is
+settling so an event-driven render loop does not stop before newly resident
+chunks are drawn.</p>
+</section>
+<section id="culling">
+<h2>Culling<a class="headerlink" href="#culling" title="Link to this heading">¶</a></h2>
+<p>Culling is CPU-side and model-parallel on desktop. The web build currently uses
+the serial path because the WebAssembly build is not wired for pthread-backed
+<code class="docutils literal notranslate"><span class="pre">std::async</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">cullModelCpuCompute()</span></code> is chunk-driven:</p>
+<ol class="arabic simple">
+<li><p>Reset each chunk’s per-frame scratch and counters.</p></li>
+<li><p>Frustum-test the chunk AABB. If the chunk is outside the frustum, every
+instance inside it is skipped.</p></li>
+<li><p>For frustum-passing chunks, process each instance in the chunk.</p></li>
+<li><p>Skip hidden object ids.</p></li>
+<li><p>Frustum-test the instance AABB.</p></li>
+<li><p>Estimate projected pixel radius and projected AABB area.</p></li>
+<li><p>Accumulate projected AABB area into the chunk’s streaming priority.</p></li>
+<li><p>Apply contribution culling. Instances below the current pixel-radius
+threshold are dropped.</p></li>
+<li><p>Mark the chunk contribution-visible. This is the signal that
+<code class="docutils literal notranslate"><span class="pre">driveStreamingLoads()</span></code> uses to decide whether a non-resident chunk is
+worth fetching.</p></li>
+<li><p>Optionally apply HiZ occlusion using the previous frame’s depth pyramid.</p></li>
+<li><p>Choose LOD0 or LOD1 based on projected size and LOD1 availability.</p></li>
+<li><p>Classify the draw as opaque or transparent.</p></li>
+<li><p>Append a <code class="docutils literal notranslate"><span class="pre">VisibleDrawGpu</span></code> record and extend the chunk prefix sum.</p></li>
+</ol>
+<p>The contribution threshold is higher while the camera is moving when
+<code class="docutils literal notranslate"><span class="pre">viewport/motion_min_pixel_radius</span></code> exceeds the still threshold. This drops
+more sub-pixel work during navigation and reduces cull and streaming pressure.</p>
+<p>HiZ occlusion is optional. When enabled, the renderer uses a depth pyramid from
+a previous compatible view-projection matrix. Contribution culling runs before
+HiZ because it is much cheaper and reduces the number of HiZ tests.</p>
+</section>
+<section id="visible-draw-tables">
+<h2>Visible draw tables<a class="headerlink" href="#visible-draw-tables" title="Link to this heading">¶</a></h2>
+<p>Culling does not issue draw calls directly. It writes compact per-chunk tables:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">visible_draws</span></code></dt><dd><p>One record per visible instance draw. It stores mesh id, instance index,
+first index, and base vertex.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">prefix_sums</span></code></dt><dd><p>A monotonic array that maps a flat vertex id inside one chunk draw call to
+a visible draw record.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">per_chunk_uniform</span></code></dt><dd><p>Four counters: total visible draws, total visible vertices, opaque visible
+vertices, and opaque visible draws.</p>
+</dd>
+</dl>
+<p>After culling, <code class="docutils literal notranslate"><span class="pre">cullModelCpuUpload()</span></code> uploads those arrays to the chunk’s GPU
+buffers. Chunks with zero visible draws have their uniform zeroed and are
+skipped by the render pass.</p>
+</section>
+<section id="triangle-rendering">
+<h2>Triangle rendering<a class="headerlink" href="#triangle-rendering" title="Link to this heading">¶</a></h2>
+<p>The main render uses one WebGPU <code class="docutils literal notranslate"><span class="pre">draw()</span></code> per resident visible chunk, not one
+draw per IFC element. The CPU has already compacted the visible instances into
+the chunk’s <code class="docutils literal notranslate"><span class="pre">visible_draws</span></code> table.</p>
+<p>The vertex shader receives a flat <code class="docutils literal notranslate"><span class="pre">vertex_index</span></code> from the draw call. It:</p>
+<ol class="arabic simple">
+<li><p>Binary-searches <code class="docutils literal notranslate"><span class="pre">prefix_sums</span></code> to find the visible draw record.</p></li>
+<li><p>Computes the local vertex within that draw.</p></li>
+<li><p>Reads the mesh-local index from the chunk index buffer.</p></li>
+<li><p>Adds the draw’s base vertex to get the packed vertex record.</p></li>
+<li><p>Decodes quantised position, octahedral normal, and colour.</p></li>
+<li><p>Reads the instance transform and object id.</p></li>
+<li><p>Transforms the local vertex to world and clip space.</p></li>
+</ol>
+<p>The fragment shader applies lighting, selection/active-object highlighting,
+x-ray alpha cap, section clipping, and transparency output. Section clipping is
+also used by picking so selected section planes match what the user sees.</p>
+</section>
+<section id="opaque-and-transparent-passes">
+<h2>Opaque and transparent passes<a class="headerlink" href="#opaque-and-transparent-passes" title="Link to this heading">¶</a></h2>
+<p>Culling partitions visible draws into opaque and transparent halves. Opaque
+draws are written first in each chunk’s arrays; transparent draws are appended
+after them.</p>
+<p>The main pass then renders:</p>
+<ol class="arabic simple">
+<li><p>Opaque pipeline with depth writes and no blending, drawing
+<code class="docutils literal notranslate"><span class="pre">opaque_visible_vertices</span></code>.</p></li>
+<li><p>Transparent pipeline with blending, drawing the remaining vertices starting
+at <code class="docutils literal notranslate"><span class="pre">opaque_visible_vertices</span></code>.</p></li>
+</ol>
+<p>Transparency is chosen from the baked mesh alpha flag, an instance colour
+override alpha, or forced x-ray mode. The transparent pass uses the same chunk
+bind group and buffers as the opaque pass.</p>
+</section>
+<section id="streaming-and-eviction">
+<h2>Streaming and eviction<a class="headerlink" href="#streaming-and-eviction" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">driveStreamingLoads()</span></code> decides which non-resident sidecar chunks should be
+loaded and which resident chunks may be evicted.</p>
+<p>Each frame it:</p>
+<ol class="arabic simple">
+<li><p>Drains completed desktop worker reads and applies successful chunks.</p></li>
+<li><p>Updates resident chunk visibility history.</p></li>
+<li><p>Builds candidates from non-resident chunks that passed contribution
+visibility in the current cull.</p></li>
+<li><p>Sorts candidates by current projected-area priority.</p></li>
+<li><p>Loads up to a fixed number of chunks per frame.</p></li>
+<li><p>Ensures the buffer pool can fit the chunk before issuing the load.</p></li>
+<li><p>Evicts lower-value resident chunks when the pool is full.</p></li>
+</ol>
+<p>The first eviction pass drops the least-recently-visible resident chunk that
+was not visible this frame. If every resident chunk is currently visible, a
+second pass may evict the lowest-priority resident chunk, but only when the
+candidate has meaningfully higher priority. This hysteresis prevents simple
+swap loops while still allowing a saturated pool to follow the camera.</p>
+<p>Desktop sidecar chunks are read by <code class="docutils literal notranslate"><span class="pre">StreamingThread</span></code>. Each request contains
+the sidecar path, geometry section offset, compressed vertex frame location,
+and compressed index frame location. The worker reads and decompresses those
+frames, then <code class="docutils literal notranslate"><span class="pre">driveStreamingLoads()</span></code> applies the result on the render thread.</p>
+<p>Web sidecar chunks are fetched asynchronously by byte range. Vertex and index
+frames are requested separately and joined before decompression and upload.
+The web path caps concurrent chunk downloads so the highest-priority chunks can
+arrive and render progressively instead of sharing bandwidth across the entire
+visible set.</p>
+</section>
+<section id="sidecar-format-relationship">
+<h2>Sidecar format relationship<a class="headerlink" href="#sidecar-format-relationship" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">.ifcview</span></code> file exists to feed this renderer. Its critical metadata block
+contains enough data to build <code class="docutils literal notranslate"><span class="pre">ModelGpuData</span></code> without reading geometry:</p>
+<ul class="simple">
+<li><p>mesh table</p></li>
+<li><p>instance table</p></li>
+<li><p>georeferencing cache</p></li>
+<li><p>chunk table of contents</p></li>
+</ul>
+<p>The geometry section contains one compressed vertex frame and one compressed
+index frame per chunk. The chunk table lets the streaming system jump directly
+to the frames for a visible chunk without scanning the file or reading
+unrelated geometry.</p>
+<p>The sidecar version documented by the current code is version 16.</p>
+</section>
+<section id="picking-overlays-and-tools">
+<h2>Picking, overlays, and tools<a class="headerlink" href="#picking-overlays-and-tools" title="Link to this heading">¶</a></h2>
+<p>Picking is a GPU pass, not CPU raycasting. The pick pipeline uses the same
+<code class="docutils literal notranslate"><span class="pre">visible_draws</span></code> and chunk buffers as the main pass and writes object ids to
+an integer texture. A click reads back the selected pixel. The section tool also
+uses a normal and world-position pick target so it can create planes from the
+actual rendered surface.</p>
+<p>Overlay rendering is host-provided. <code class="docutils literal notranslate"><span class="pre">ViewportCore</span></code> encodes the shared section
+gizmo and calls host hooks for in-pass and post-main overlays. The Qt host
+forwards those hooks to the desktop overlay renderer; the web host can no-op or
+provide its own implementation.</p>
+<p>Edges are drawn after the main pass using the depth buffer. HiZ resolve, when
+enabled, also happens after the main pass so a later frame can use the captured
+depth pyramid for occlusion culling.</p>
+</section>
+<section id="federation-and-transforms">
+<h2>Federation and transforms<a class="headerlink" href="#federation-and-transforms" title="Link to this heading">¶</a></h2>
+<p>Federated models compose several transforms before upload:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>federated_false_origin
+    * model_transformation
+    * coordinate_operation
+    * placement_transformation
+</pre></div>
+</div>
+<p>The sidecar stores double-precision placement transforms so large IFC
+coordinates can be combined with coordinate operation and false-origin matrices
+before being narrowed to the float transform used by the GPU. This protects
+rendering precision for survey-coordinate models.</p>
+</section>
+<section id="what-to-remember">
+<h2>What to remember<a class="headerlink" href="#what-to-remember" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Raw IFC streaming produces mesh and instance chunks, but the WebGPU viewport
+does not draw each emitted mesh immediately. It stages them, finalises a model,
+then uses the same chunk path as sidecar loads.</p></li>
+<li><p>Sidecar loads create a renderable model from metadata first. Geometry becomes
+visible only as chunks become resident.</p></li>
+<li><p>Culling produces compact visible draw tables per chunk.</p></li>
+<li><p>The renderer draws one flat vertex stream per visible chunk. The shader
+expands that stream back into indexed, instanced triangles using
+<code class="docutils literal notranslate"><span class="pre">visible_draws</span></code> and <code class="docutils literal notranslate"><span class="pre">prefix_sums</span></code>.</p></li>
+<li><p>Streaming priority comes from the current view. Chunks are fetched only when
+their instances are large enough on screen to be worth drawing.</p></li>
+<li><p>The buffer pool is finite, so residency is dynamic. The renderer keeps the
+chunks that matter most for the current view and evicts lower-value chunks
+under memory pressure.</p></li>
+</ul>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          <a class="prev-page" href="env-vars.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Environment variables and developer settings</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2020-2026 IfcOpenShell Contributors
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://ifcopenshell.org" aria-label="IfcOpenShell">
+                <img src="https://ifcopenshell.org/assets/images/logo.png" style="width: auto;" />
+            </a>
+              <a class="muted-link " href="https://github.com/IfcOpenShell/IfcOpenShell/tree/v0.9.0/src/bonsaiviewer/docs" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Viewport architecture</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#main-components">Main components</a></li>
+<li><a class="reference internal" href="#load-path-1-sidecar-hit">Load path 1: sidecar hit</a></li>
+<li><a class="reference internal" href="#load-path-2-direct-ifc-stream">Load path 2: direct IFC stream</a></li>
+<li><a class="reference internal" href="#mesh-and-vertex-representation">Mesh and vertex representation</a></li>
+<li><a class="reference internal" href="#chunk-layout-and-residency">Chunk layout and residency</a></li>
+<li><a class="reference internal" href="#per-frame-render-pipeline">Per-frame render pipeline</a></li>
+<li><a class="reference internal" href="#culling">Culling</a></li>
+<li><a class="reference internal" href="#visible-draw-tables">Visible draw tables</a></li>
+<li><a class="reference internal" href="#triangle-rendering">Triangle rendering</a></li>
+<li><a class="reference internal" href="#opaque-and-transparent-passes">Opaque and transparent passes</a></li>
+<li><a class="reference internal" href="#streaming-and-eviction">Streaming and eviction</a></li>
+<li><a class="reference internal" href="#sidecar-format-relationship">Sidecar format relationship</a></li>
+<li><a class="reference internal" href="#picking-overlays-and-tools">Picking, overlays, and tools</a></li>
+<li><a class="reference internal" href="#federation-and-transforms">Federation and transforms</a></li>
+<li><a class="reference internal" href="#what-to-remember">What to remember</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=c72a7fdd"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    </body>
+</html>
