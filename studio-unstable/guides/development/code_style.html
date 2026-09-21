@@ -443,21 +443,21 @@
 <h1>Code style<a class="headerlink" href="#code-style" title="Link to this heading">¶</a></h1>
 <section id="python-code-formatters">
 <h2>Python code formatters<a class="headerlink" href="#python-code-formatters" title="Link to this heading">¶</a></h2>
-<p>For Python code formatting, we use <a class="reference external" href="https://pypi.org/project/black/">Black code formatter</a>,
-black settings are stored in the repository’s pyproject.toml.</p>
-<p>We have GitHub workflow <cite>ci-lint</cite> to maintain black formatting across the repository.</p>
-<p><code class="docutils literal notranslate"><span class="pre">black</span></code> can be installed using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">black</span></code> and files can be formatted with the following example command:</p>
+<p>For Python code formatting, we use the <a class="reference external" href="https://docs.astral.sh/ruff/formatter/">ruff formatter</a>,
+its settings are stored in the repository’s pyproject.toml.</p>
+<p>We have GitHub workflow <cite>ci-lint</cite> to maintain the formatting across the repository.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ruff</span></code> can be installed using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">ruff</span></code> and files can be formatted with the following example command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Format the entire repository.</span>
-<span class="c1"># Should be used in 99% cases as the entire repository is already formatted using black.</span>
-black<span class="w"> </span>.
+<span class="c1"># Should be used in 99% cases as the entire repository is already formatted.</span>
+ruff<span class="w"> </span>format
 <span class="c1"># Format only some specific file.</span>
-black<span class="w"> </span>src/bonsai/bonsai/bim/module/qto/operator.py
+ruff<span class="w"> </span>format<span class="w"> </span>src/bonsai/bonsai/bim/module/qto/operator.py
 </pre></div>
 </div>
 <p>There is also <cite>ruff</cite> with some basic linter rules (checked automatically by the same Github workflow).
 Which also helps maintaining consistency across the code base
 and ensure new Python syntax doesn’t break code on older Python versions.</p>
-<p><code class="docutils literal notranslate"><span class="pre">ruff</span></code> can be installed using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">ruff</span></code> and files can be formatted with the following example commands:</p>
+<p>Files can be checked with the following example commands:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check issues for the entire repository.</span>
 ruff<span class="w"> </span>check
 <span class="c1"># Apply some automatic fixes, if available.</span>
