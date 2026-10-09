@@ -330,9 +330,11 @@ when sidecar reads are enabled. If that fails, it starts the geometry
 streamer. It also keeps the <code class="docutils literal notranslate"><span class="pre">ifcopenshell::file</span></code> used by property and UI
 code.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">GeometryStreamer</span></code></dt><dd><p>Runs <code class="docutils literal notranslate"><span class="pre">ifcopenshell::geom::iterator</span></code> on a worker thread for raw IFC loads. It emits a
-<code class="docutils literal notranslate"><span class="pre">StreamedMesh</span></code> once for each unique representation mesh and a
-<code class="docutils literal notranslate"><span class="pre">StreamedInstance</span></code> for each placed occurrence.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">GeometryStreamer</span></code></dt><dd><p>Runs <code class="docutils literal notranslate"><span class="pre">ifcopenshell::geom::iterator</span></code> on a worker thread for raw IFC loads.
+It emits a <code class="docutils literal notranslate"><span class="pre">StreamedMesh</span></code> once for each unique mesh and a
+<code class="docutils literal notranslate"><span class="pre">StreamedInstance</span></code> for each placed occurrence. A mesh is considered
+unique first by representation id (mapped items), and then by shape:
+<code class="docutils literal notranslate"><span class="pre">MeshDedup</span></code> deduplicates congruent meshes.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">SidecarBuilder</span></code></dt><dd><p>Optionally mirrors the streamer’s output while a raw IFC is loading. It
 writes a new <code class="docutils literal notranslate"><span class="pre">.ifcview</span></code> cache after the stream finishes, so the next open
