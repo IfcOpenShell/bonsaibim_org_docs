@@ -375,9 +375,9 @@ They have no effect on geometric correctness and ship disabled.</p>
 </section>
 <section id="lod-build-tuning">
 <h2>LOD build tuning<a class="headerlink" href="#lod-build-tuning" title="Link to this heading">¶</a></h2>
-<p>These affect how the LOD1 representation is generated when a sidecar
+<p>These affect how the LOD1 representation is generated when a .ifcview
 is <em>baked</em>; loading an existing <code class="docutils literal notranslate"><span class="pre">.ifcfed</span></code> does not re-read them.
-Override only when you’re regenerating sidecars and want to inspect or
+Override only when you’re regenerating .ifcview files and want to inspect or
 adjust the trade-off between LOD0 fidelity and LOD1 triangle savings.</p>
 <div class="table-wrapper colwidths-given docutils container">
 <table class="docutils align-default">
@@ -407,7 +407,7 @@ adjust the trade-off between LOD0 fidelity and LOD1 triangle savings.</p>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">IFC_LOD_DEBUG</span></code></p></td>
 <td><p>off</p></td>
-<td><p>Set to <code class="docutils literal notranslate"><span class="pre">1</span></code> to print per-mesh LOD build diagnostics for the first few meshes of each <code class="docutils literal notranslate"><span class="pre">buildLodsForSidecar</span></code> call: input/output triangle counts, target error, and the accept/reject decision. Caps printing automatically so it can be left on for full builds without flooding the log.</p></td>
+<td><p>Set to <code class="docutils literal notranslate"><span class="pre">1</span></code> to print per-mesh LOD build diagnostics for the first few meshes of each <code class="docutils literal notranslate"><span class="pre">buildLodsForIfcView</span></code> call: input/output triangle counts, target error, and the accept/reject decision. Caps printing automatically so it can be left on for full builds without flooding the log.</p></td>
 </tr>
 </tbody>
 </table>

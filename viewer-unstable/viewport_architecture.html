@@ -303,8 +303,8 @@ in GPU memory, and what is drawn.</p>
 <p>The renderer is built around a small number of data transformations:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>IFC / .ifcview input
     -&gt; SceneLoader
-    -&gt; GeometryStreamer or sidecar metadata reader
-    -&gt; SidecarData-shaped model metadata
+    -&gt; GeometryStreamer or .ifcview metadata reader
+    -&gt; IfcViewData-shaped model metadata
     -&gt; ViewportCore::applyCachedModel()
     -&gt; per-model chunks, mesh table, instance table
     -&gt; cullModelCpuCompute()
@@ -317,7 +317,7 @@ in GPU memory, and what is drawn.</p>
 </div>
 <p>The important split is between <strong>metadata</strong> and <strong>geometry bytes</strong>. Metadata
 describes meshes, instances, bounds, transforms, element ids, and chunk layout.
-Geometry bytes are the quantised vertices and indices. A sidecar load reads
+Geometry bytes are the quantised vertices and indices. A .ifcview load reads
 metadata first and leaves geometry chunks non-resident until the camera needs
 them. A direct IFC load builds the same structures from the geometry iterator,
 then uploads all chunks at finalisation.</p>
@@ -326,7 +326,7 @@ then uploads all chunks at finalisation.</p>
 <h2>Main components<a class="headerlink" href="#main-components" title="Link to this heading">¶</a></h2>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">SceneLoader</span></code></dt><dd><p>Orchestrates model loading. It first tries to read <code class="docutils literal notranslate"><span class="pre">.ifcview</span></code> metadata
-when sidecar reads are enabled. If that fails, it starts the geometry
+when .ifcview reads are enabled. If that fails, it starts the geometry
 streamer. It also keeps the <code class="docutils literal notranslate"><span class="pre">ifcopenshell::file</span></code> used by property and UI
 code.</p>
 </dd>
@@ -336,9 +336,9 @@ It emits a <code class="docutils literal notranslate"><span class="pre">Streamed
 unique first by representation id (mapped items), and then by shape:
 <code class="docutils literal notranslate"><span class="pre">MeshDedup</span></code> deduplicates congruent meshes.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">SidecarBuilder</span></code></dt><dd><p>Optionally mirrors the streamer’s output while a raw IFC is loading. It
-writes a new <code class="docutils literal notranslate"><span class="pre">.ifcview</span></code> cache after the stream finishes, so the next open
-can use the sidecar fast path.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">IfcViewAssembler</span></code></dt><dd><p>Optionally mirrors the streamer’s output while a raw IFC is loading.
+<code class="docutils literal notranslate"><span class="pre">SceneLoader</span></code> finalises it and writes a new <code class="docutils literal notranslate"><span class="pre">.ifcview</span></code> cache after the
+stream finishes, so the next open can use the .ifcview fast path.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">ViewportWindow</span></code></dt><dd><p>The Qt-facing window wrapper. It owns UI/window integration and forwards
 renderer work to <code class="docutils literal notranslate"><span class="pre">ViewportCore</span></code>.</p>
@@ -355,21 +355,21 @@ by tools.</p>
 Chunks enter and leave this pool as the streaming system pages geometry in
 and out.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">StreamingThread</span></code> and web range loading</dt><dd><p>Desktop sidecar streaming uses a background worker to read and decompress
+<dt><code class="docutils literal notranslate"><span class="pre">StreamingThread</span></code> and web range loading</dt><dd><p>Desktop .ifcview streaming uses a background worker to read and decompress
 chunk frames. The web build uses asynchronous byte-range reads from a
 registered file or URL source.</p>
 </dd>
 </dl>
 </section>
-<section id="load-path-1-sidecar-hit">
-<h2>Load path 1: sidecar hit<a class="headerlink" href="#load-path-1-sidecar-hit" title="Link to this heading">¶</a></h2>
+<section id="load-path-1-ifcview-hit">
+<h2>Load path 1: .ifcview hit<a class="headerlink" href="#load-path-1-ifcview-hit" title="Link to this heading">¶</a></h2>
 <p>The fast path starts when <code class="docutils literal notranslate"><span class="pre">SceneLoader</span></code> finds a readable <code class="docutils literal notranslate"><span class="pre">.ifcview</span></code> cache.
-The reader validates the sidecar header, skips the compressed geometry section,
+The reader validates the .ifcview header, skips the compressed geometry section,
 and reads the metadata blocks.</p>
-<p>For desktop loading, <code class="docutils literal notranslate"><span class="pre">readSidecarMetadata()</span></code> returns a
-<code class="docutils literal notranslate"><span class="pre">StreamingSidecar</span></code> containing:</p>
+<p>For desktop loading, <code class="docutils literal notranslate"><span class="pre">readIfcViewMetadata()</span></code> returns a
+<code class="docutils literal notranslate"><span class="pre">StreamingIfcView</span></code> containing:</p>
 <ul class="simple">
-<li><p>the sidecar file path</p></li>
+<li><p>the .ifcview file path</p></li>
 <li><p>the geometry section offset</p></li>
 <li><p>mesh records</p></li>
 <li><p>instance records</p></li>
@@ -377,15 +377,15 @@ and reads the metadata blocks.</p>
 <li><p>the baked chunk table of contents</p></li>
 <li><p>element metadata</p></li>
 </ul>
-<p>For web loading, <code class="docutils literal notranslate"><span class="pre">ViewportCore::loadSidecarMetadataWeb()</span></code> reads only the
+<p>For web loading, <code class="docutils literal notranslate"><span class="pre">ViewportCore::loadIfcViewMetadataWeb()</span></code> reads only the
 header and critical metadata before creating the model. It records the location
 of the deferred element metadata block and fetches that later only when UI code
 needs it.</p>
-<p><code class="docutils literal notranslate"><span class="pre">ViewportCore::applyCachedModel()</span></code> then converts sidecar metadata into
+<p><code class="docutils literal notranslate"><span class="pre">ViewportCore::applyCachedModel()</span></code> then converts .ifcview metadata into
 runtime model state:</p>
 <ol class="arabic simple">
-<li><p>It creates the chunk list. If the sidecar contains a baked
-<code class="docutils literal notranslate"><span class="pre">SidecarChunk</span></code> table, that table is authoritative. Each chunk is a
+<li><p>It creates the chunk list. If the .ifcview contains a baked
+<code class="docutils literal notranslate"><span class="pre">IfcViewChunk</span></code> table, that table is authoritative. Each chunk is a
 consecutive mesh range with compressed vertex and index frame locations. If
 the model came from a direct in-memory load and has no table, the chunk plan
 is derived from mesh centroids with Morton sorting and greedy packing.</p></li>
@@ -398,12 +398,12 @@ mesh-local offsets inside each chunk, chunk AABBs, and chunk instance lists.</p>
 <li><p>It leaves the actual chunk vertex and index bytes non-resident. They are
 fetched later by <code class="docutils literal notranslate"><span class="pre">driveStreamingLoads()</span></code>.</p></li>
 </ol>
-<p>At this point the viewer knows the model’s structure and bounds, but a sidecar
+<p>At this point the viewer knows the model’s structure and bounds, but a .ifcview
 model has not necessarily uploaded any triangles yet.</p>
 </section>
 <section id="load-path-2-direct-ifc-stream">
 <h2>Load path 2: direct IFC stream<a class="headerlink" href="#load-path-2-direct-ifc-stream" title="Link to this heading">¶</a></h2>
-<p>When no usable sidecar exists, <code class="docutils literal notranslate"><span class="pre">SceneLoader</span></code> starts <code class="docutils literal notranslate"><span class="pre">GeometryStreamer</span></code>.
+<p>When no usable .ifcview exists, <code class="docutils literal notranslate"><span class="pre">SceneLoader</span></code> starts <code class="docutils literal notranslate"><span class="pre">GeometryStreamer</span></code>.
 Streamer signals are queued from the worker thread into the UI/render thread:</p>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">StreamedMesh</span></code></dt><dd><p>A unique mesh in transfer form. Vertices are seven floats per vertex:
@@ -414,17 +414,17 @@ placement transform, and world AABB.</p>
 </dd>
 </dl>
 <p>During the stream, <code class="docutils literal notranslate"><span class="pre">ViewportCore::uploadStreamedMesh()</span></code> and
-<code class="docutils literal notranslate"><span class="pre">ViewportCore::uploadStreamedInstance()</span></code> stage the data in a <code class="docutils literal notranslate"><span class="pre">SidecarData</span></code>
+<code class="docutils literal notranslate"><span class="pre">ViewportCore::uploadStreamedInstance()</span></code> stage the data in a <code class="docutils literal notranslate"><span class="pre">IfcViewData</span></code>
 shape. Mesh vertices are converted to the renderer’s packed 12-byte format,
 indices are stored, and instance records are accumulated. The viewport does not
 incrementally draw these raw streamed mesh records one by one.</p>
 <p>When the streamer finishes, <code class="docutils literal notranslate"><span class="pre">SceneLoader::onStreamerFinished()</span></code> calls
 <code class="docutils literal notranslate"><span class="pre">ViewportCore::finalizeModel()</span></code>. Finalisation wraps the staged data in a
-<code class="docutils literal notranslate"><span class="pre">StreamingSidecar</span></code> object and calls the same <code class="docutils literal notranslate"><span class="pre">applyCachedModel()</span></code> path used
-by sidecar loads. It then gathers the already-staged vertex and index bytes per
+<code class="docutils literal notranslate"><span class="pre">StreamingIfcView</span></code> object and calls the same <code class="docutils literal notranslate"><span class="pre">applyCachedModel()</span></code> path used
+by .ifcview loads. It then gathers the already-staged vertex and index bytes per
 chunk and calls <code class="docutils literal notranslate"><span class="pre">applyStreamedChunk()</span></code> for each chunk. Direct IFC loads
 therefore become resident after finalisation rather than streaming from disk.</p>
-<p>If sidecar writes are enabled, <code class="docutils literal notranslate"><span class="pre">SidecarBuilder</span></code> finalises its mirrored copy,
+<p>If .ifcview writes are enabled, <code class="docutils literal notranslate"><span class="pre">SceneLoader</span></code> finalises the assembler’s mirrored copy,
 builds LOD1 where available, reorders geometry into streaming chunk order, and
 writes the <code class="docutils literal notranslate"><span class="pre">.ifcview</span></code> file for the next open.</p>
 </section>
@@ -445,7 +445,7 @@ back into that local AABB. The instance transform then moves the vertex to
 world space.</p>
 <p>Indices are <code class="docutils literal notranslate"><span class="pre">uint32</span></code>. Each mesh has an LOD0 index range and may have an LOD1
 index range. LOD1 reuses the same vertices with a smaller index list generated
-at sidecar-build time.</p>
+at .ifcview-build time.</p>
 </section>
 <section id="chunk-layout-and-residency">
 <h2>Chunk layout and residency<a class="headerlink" href="#chunk-layout-and-residency" title="Link to this heading">¶</a></h2>
@@ -455,12 +455,12 @@ bind groups. A chunk owns:</p>
 <li><p>a list of mesh ids</p></li>
 <li><p>a list of instance ids</p></li>
 <li><p>a world AABB</p></li>
-<li><p>compressed sidecar frame locations, for sidecar-backed models</p></li>
+<li><p>compressed .ifcview frame locations, for .ifcview-backed models</p></li>
 <li><p>local vertex and index offsets for meshes inside the chunk</p></li>
 <li><p>GPU pool slices when resident</p></li>
 <li><p>cull output buffers</p></li>
 </ul>
-<p>For sidecar-backed models, chunks start non-resident. They have metadata and
+<p>For .ifcview-backed models, chunks start non-resident. They have metadata and
 small cull buffers, but no vertex/index pool slices. A chunk becomes resident
 when <code class="docutils literal notranslate"><span class="pre">applyStreamedChunk()</span></code> receives its decompressed vertex and index bytes.</p>
 <p><code class="docutils literal notranslate"><span class="pre">applyStreamedChunk()</span></code>:</p>
@@ -591,7 +591,7 @@ bind group and buffers as the opaque pass.</p>
 </section>
 <section id="streaming-and-eviction">
 <h2>Streaming and eviction<a class="headerlink" href="#streaming-and-eviction" title="Link to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">driveStreamingLoads()</span></code> decides which non-resident sidecar chunks should be
+<p><code class="docutils literal notranslate"><span class="pre">driveStreamingLoads()</span></code> decides which non-resident .ifcview chunks should be
 loaded and which resident chunks may be evicted.</p>
 <p>Each frame it:</p>
 <ol class="arabic simple">
@@ -609,18 +609,18 @@ was not visible this frame. If every resident chunk is currently visible, a
 second pass may evict the lowest-priority resident chunk, but only when the
 candidate has meaningfully higher priority. This hysteresis prevents simple
 swap loops while still allowing a saturated pool to follow the camera.</p>
-<p>Desktop sidecar chunks are read by <code class="docutils literal notranslate"><span class="pre">StreamingThread</span></code>. Each request contains
-the sidecar path, geometry section offset, compressed vertex frame location,
+<p>Desktop .ifcview chunks are read by <code class="docutils literal notranslate"><span class="pre">StreamingThread</span></code>. Each request contains
+the .ifcview path, geometry section offset, compressed vertex frame location,
 and compressed index frame location. The worker reads and decompresses those
 frames, then <code class="docutils literal notranslate"><span class="pre">driveStreamingLoads()</span></code> applies the result on the render thread.</p>
-<p>Web sidecar chunks are fetched asynchronously by byte range. Vertex and index
+<p>Web .ifcview chunks are fetched asynchronously by byte range. Vertex and index
 frames are requested separately and joined before decompression and upload.
 The web path caps concurrent chunk downloads so the highest-priority chunks can
 arrive and render progressively instead of sharing bandwidth across the entire
 visible set.</p>
 </section>
-<section id="sidecar-format-relationship">
-<h2>Sidecar format relationship<a class="headerlink" href="#sidecar-format-relationship" title="Link to this heading">¶</a></h2>
+<section id="ifcview-format-relationship">
+<h2>.ifcview format relationship<a class="headerlink" href="#ifcview-format-relationship" title="Link to this heading">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">.ifcview</span></code> file exists to feed this renderer. Its critical metadata block
 contains enough data to build <code class="docutils literal notranslate"><span class="pre">ModelGpuData</span></code> without reading geometry:</p>
 <ul class="simple">
@@ -633,7 +633,7 @@ contains enough data to build <code class="docutils literal notranslate"><span c
 index frame per chunk. The chunk table lets the streaming system jump directly
 to the frames for a visible chunk without scanning the file or reading
 unrelated geometry.</p>
-<p>The sidecar version documented by the current code is version 16.</p>
+<p>The .ifcview version documented by the current code is version 16.</p>
 </section>
 <section id="picking-overlays-and-tools">
 <h2>Picking, overlays, and tools<a class="headerlink" href="#picking-overlays-and-tools" title="Link to this heading">¶</a></h2>
@@ -659,7 +659,7 @@ depth pyramid for occlusion culling.</p>
     * placement_transformation
 </pre></div>
 </div>
-<p>The sidecar stores double-precision placement transforms so large IFC
+<p>The .ifcview stores double-precision placement transforms so large IFC
 coordinates can be combined with coordinate operation and false-origin matrices
 before being narrowed to the float transform used by the GPU. This protects
 rendering precision for survey-coordinate models.</p>
@@ -669,8 +669,8 @@ rendering precision for survey-coordinate models.</p>
 <ul class="simple">
 <li><p>Raw IFC streaming produces mesh and instance chunks, but the WebGPU viewport
 does not draw each emitted mesh immediately. It stages them, finalises a model,
-then uses the same chunk path as sidecar loads.</p></li>
-<li><p>Sidecar loads create a renderable model from metadata first. Geometry becomes
+then uses the same chunk path as .ifcview loads.</p></li>
+<li><p>.ifcview loads create a renderable model from metadata first. Geometry becomes
 visible only as chunks become resident.</p></li>
 <li><p>Culling produces compact visible draw tables per chunk.</p></li>
 <li><p>The renderer draws one flat vertex stream per visible chunk. The shader
@@ -745,7 +745,7 @@ under memory pressure.</p></li>
 <li><a class="reference internal" href="#">Viewport architecture</a><ul>
 <li><a class="reference internal" href="#overview">Overview</a></li>
 <li><a class="reference internal" href="#main-components">Main components</a></li>
-<li><a class="reference internal" href="#load-path-1-sidecar-hit">Load path 1: sidecar hit</a></li>
+<li><a class="reference internal" href="#load-path-1-ifcview-hit">Load path 1: .ifcview hit</a></li>
 <li><a class="reference internal" href="#load-path-2-direct-ifc-stream">Load path 2: direct IFC stream</a></li>
 <li><a class="reference internal" href="#mesh-and-vertex-representation">Mesh and vertex representation</a></li>
 <li><a class="reference internal" href="#chunk-layout-and-residency">Chunk layout and residency</a></li>
@@ -755,7 +755,7 @@ under memory pressure.</p></li>
 <li><a class="reference internal" href="#triangle-rendering">Triangle rendering</a></li>
 <li><a class="reference internal" href="#opaque-and-transparent-passes">Opaque and transparent passes</a></li>
 <li><a class="reference internal" href="#streaming-and-eviction">Streaming and eviction</a></li>
-<li><a class="reference internal" href="#sidecar-format-relationship">Sidecar format relationship</a></li>
+<li><a class="reference internal" href="#ifcview-format-relationship">.ifcview format relationship</a></li>
 <li><a class="reference internal" href="#picking-overlays-and-tools">Picking, overlays, and tools</a></li>
 <li><a class="reference internal" href="#federation-and-transforms">Federation and transforms</a></li>
 <li><a class="reference internal" href="#what-to-remember">What to remember</a></li>
