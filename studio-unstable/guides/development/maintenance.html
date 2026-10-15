@@ -528,16 +528,16 @@
 <td><p><code class="docutils literal notranslate"><span class="pre">MIN_BLENDER_PY_VERSION</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.github/workflows/publish-bonsai.yml</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pyver</span></code> matrix</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pyver</span></code> matrix, <code class="docutils literal notranslate"><span class="pre">SEMVER_SUFFIX</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.github/workflows/publish-bonsai-unstable.yml</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">pyver</span></code> matrix</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.github/scripts/publish-bonsai-releases.py</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">CURRENT_PYTHON_VERSION</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.github/workflows/publish-bonsai-releases.yml</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--python-version</span></code> arguments, <code class="docutils literal notranslate"><span class="pre">only_py311</span></code> input</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">src/bonsai/Makefile</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">SUPPORTED_PYVERSIONS</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SUPPORTED_PYVERSIONS</span></code>, <code class="docutils literal notranslate"><span class="pre">blender_version_min</span></code> / <code class="docutils literal notranslate"><span class="pre">blender_version_max</span></code> per <code class="docutils literal notranslate"><span class="pre">PYVERSION</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">src/bonsai/scripts/dev_environment.py</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">PYTHON_VERSION</span></code> mapping (Blender version, bundled Python version)</p></td>
@@ -559,16 +559,16 @@ derive numeric-only and SemVer forms such as <code class="docutils literal notra
 <li><p>Corrective Release (if needed after a standard release):</p>
 <ul>
 <li><p>Create a new branch from the release tag (e.g., from the <code class="docutils literal notranslate"><span class="pre">ifcopenshell-0.8.5</span></code> tag)</p></li>
-<li><p>Update <code class="docutils literal notranslate"><span class="pre">VERSION</span></code> with the <code class="docutils literal notranslate"><span class="pre">-post1</span></code> suffix (e.g., <code class="docutils literal notranslate"><span class="pre">0.8.5-post1</span></code>, <strong>not</strong> <code class="docutils literal notranslate"><span class="pre">.post1</span></code>)</p></li>
-<li><p>The hyphen is required for semantic versioning compliance; Blender will not process <code class="docutils literal notranslate"><span class="pre">.post1</span></code> suffixes correctly</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">VERSION</span></code> with <code class="docutils literal notranslate"><span class="pre">poe</span> <span class="pre">version</span> <span class="pre">--bump</span> <span class="pre">0.8.5post1</span></code></p></li>
 <li><p>Follow the standard release process for the corrective version</p></li>
 </ul>
 </li>
 <li><p>Multiple Blender Python Versions:</p>
 <ul>
-<li><p>Blender does not allow multiple builds for the same platform with different Python versions (e.g., cannot have both <code class="docutils literal notranslate"><span class="pre">bonsai_py311-0.8.5-windows-x64.zip</span></code> and <code class="docutils literal notranslate"><span class="pre">bonsai_py313-0.8.5-windows-x64.zip</span></code>)</p></li>
-<li><p>Workaround: publish different Python versions as different extension versions (e.g., py313 as <code class="docutils literal notranslate"><span class="pre">0.8.5</span></code> and py311 as <code class="docutils literal notranslate"><span class="pre">0.8.5-post1</span></code>)</p></li>
-<li><p>Set the maximum Blender version on the Blender extensions platform UI to prevent conflicts (e.g., set max version <code class="docutils literal notranslate"><span class="pre">5.1.0</span></code> for <code class="docutils literal notranslate"><span class="pre">0.8.5-post1</span></code>, which restricts it to versions below 5.1.0)</p></li>
+<li><p>Blender does not allow multiple builds for the same platform with different Python versions (e.g., cannot have both <code class="docutils literal notranslate"><span class="pre">bonsai_py311-0.9.0-windows-x64.zip</span></code> and <code class="docutils literal notranslate"><span class="pre">bonsai_py313-0.9.0-windows-x64.zip</span></code>), see <a class="reference external" href="https://projects.blender.org/infrastructure/extensions-website/issues/393">extensions-website#393</a></p></li>
+<li><p>Workaround: py311 builds get a <code class="docutils literal notranslate"><span class="pre">-py311</span></code> version suffix, e.g. py313 is published as <code class="docutils literal notranslate"><span class="pre">0.9.0</span></code> and py311 as <code class="docutils literal notranslate"><span class="pre">0.9.0-py311</span></code></p></li>
+<li><p>py311 builds set <code class="docutils literal notranslate"><span class="pre">blender_version_max</span></code> in <code class="docutils literal notranslate"><span class="pre">blender_manifest.toml</span></code>, so they are not offered to Blender versions with a newer Python (e.g. <code class="docutils literal notranslate"><span class="pre">5.1.0</span></code> excludes Blender 5.1 and later)</p></li>
+<li><p>The platform allows uploading a new version only every 2 hours, so <code class="docutils literal notranslate"><span class="pre">publish-bonsai-releases.yml</span></code> publishing py313 then py311 will fail on py311. Rerun it 2 hours later with the <code class="docutils literal notranslate"><span class="pre">only_py311</span></code> input. See <a class="reference external" href="https://projects.blender.org/infrastructure/extensions-website/issues/429">extensions-website#429</a></p></li>
 </ul>
 </li>
 </ul>
