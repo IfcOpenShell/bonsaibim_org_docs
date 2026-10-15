@@ -7,7 +7,7 @@
         <link rel="prefetch" href="https://bonsaibim.org/assets/images/blender/blender-logo.png" as="image">
 
     <link rel="shortcut icon" href="https://bonsaibim.org/assets/images/blender/blender-logo.png"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>Maintenance - Bonsai 0.9.0 documentation</title>
+        <title>Maintenance - Bonsai 0.9.0post1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=aefb6c79" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -204,7 +204,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">Bonsai 0.9.0 documentation</div></a>
+      <a href="../../index.html"><div class="brand">Bonsai 0.9.0post1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -229,7 +229,7 @@
     <img class="sidebar-logo" src="https://bonsaibim.org/assets/images/blender/blender-logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">Bonsai 0.9.0 documentation</span>
+  <span class="sidebar-brand-text">Bonsai 0.9.0post1 documentation</span>
   
   <select class="doc-version-switcher" onchange="switchDocs()">
     <option value="stable">Stable</option>
@@ -480,7 +480,10 @@
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">src/ifcopenshell-python/test/test_package.py</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">SUPPORTED_PY_VERSIONS</span></code> tuple</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">win/build-all-win.py</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">src/ifcwrap/CMakeLists.txt</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PYTHON_MIN_VERSION</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">win/build-all-win.py</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">PYTHON_VERSIONS</span></code> list</p></td>
 </tr>
 </tbody>
@@ -551,8 +554,7 @@ derive numeric-only and SemVer forms such as <code class="docutils literal notra
 <li><p>Corrective Release (if needed after a standard release):</p>
 <ul>
 <li><p>Create a new branch from the release tag (e.g., from the <code class="docutils literal notranslate"><span class="pre">ifcopenshell-0.8.5</span></code> tag)</p></li>
-<li><p>Update <code class="docutils literal notranslate"><span class="pre">VERSION</span></code> with the <code class="docutils literal notranslate"><span class="pre">-post1</span></code> suffix (e.g., <code class="docutils literal notranslate"><span class="pre">0.8.5-post1</span></code>, <strong>not</strong> <code class="docutils literal notranslate"><span class="pre">.post1</span></code>)</p></li>
-<li><p>The hyphen is required for semantic versioning compliance; Blender will not process <code class="docutils literal notranslate"><span class="pre">.post1</span></code> suffixes correctly</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">VERSION</span></code> with <code class="docutils literal notranslate"><span class="pre">poe</span> <span class="pre">version</span> <span class="pre">--bump</span> <span class="pre">0.8.5post1</span></code></p></li>
 <li><p>Follow the standard release process for the corrective version</p></li>
 </ul>
 </li>
@@ -685,7 +687,7 @@ derive numeric-only and SemVer forms such as <code class="docutils literal notra
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=39bb1c6d"></script>
+</div><script src="../../_static/documentation_options.js?v=5f5fd5ca"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
