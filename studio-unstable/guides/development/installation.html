@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="Hello, world!" href="hello_world.html"><link rel="prev" title="Getting Started" href="getting_started.html">
         <link rel="prefetch" href="https://bonsaibim.org/assets/images/blender/blender-logo.png" as="image">
 
-    <link rel="shortcut icon" href="https://bonsaibim.org/assets/images/blender/blender-logo.png"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+    <link rel="shortcut icon" href="https://bonsaibim.org/assets/images/blender/blender-logo.png"><!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
         <title>Installation - Bonsai 0.9.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=3e69a11e" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
@@ -665,6 +665,21 @@ system:</p>
 which were skipped (e.g. drafts), and which failed due to conflicts with other
 PRs.</p>
 </section>
+<section id="release-variants-asc-desc-and-upd">
+<h3>Release Variants: <code class="docutils literal notranslate"><span class="pre">[asc]</span></code>, <code class="docutils literal notranslate"><span class="pre">[desc]</span></code> and <code class="docutils literal notranslate"><span class="pre">[upd]</span></code><a class="headerlink" href="#release-variants-asc-desc-and-upd" title="Link to this heading">¶</a></h3>
+<p>Each run can publish up to three releases, marked by a suffix in the release
+name. They differ only in the <strong>order</strong> in which the PRs are merged:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[asc]</span></code> — ascending: lowest PR number merged first.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[desc]</span></code> — descending: highest PR number merged first.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[upd]</span></code> — by last update: most recently updated PR merged first.</p></li>
+</ul>
+<p>Order matters when two PRs conflict with each other but not with the base
+branch. Whichever is merged first gets in, and the other is skipped. If a PR you
+want is listed under <em>Skipped – Conflict with other PRs</em> in one release’s
+report, check the other two releases from the same run; it may be included in
+one of them.</p>
+</section>
 <section id="installing-bonsaipr-with-automated-updates">
 <h3>Installing BonsaiPR with Automated Updates<a class="headerlink" href="#installing-bonsaipr-with-automated-updates" title="Link to this heading">¶</a></h3>
 <ol class="arabic">
@@ -800,6 +815,7 @@ same dependency. Neither add-on may work simultaneously.</p></li>
 <li><a class="reference internal" href="#bonsaipr-bleeding-edge-installation">BonsaiPR (Bleeding Edge) Installation</a><ul>
 <li><a class="reference internal" href="#why-bonsaipr-exists">Why BonsaiPR Exists</a></li>
 <li><a class="reference internal" href="#how-it-works">How It Works</a></li>
+<li><a class="reference internal" href="#release-variants-asc-desc-and-upd">Release Variants: <code class="docutils literal notranslate"><span class="pre">[asc]</span></code>, <code class="docutils literal notranslate"><span class="pre">[desc]</span></code> and <code class="docutils literal notranslate"><span class="pre">[upd]</span></code></a></li>
 <li><a class="reference internal" href="#installing-bonsaipr-with-automated-updates">Installing BonsaiPR with Automated Updates</a></li>
 <li><a class="reference internal" href="#installing-bonsaipr-manually">Installing BonsaiPR Manually</a></li>
 </ul>
